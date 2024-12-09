@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edubridge Dashboard</title>
+    
+    <style>
+        <link rel="stylesheet" href="{% static 'myapp/Bgpattern.css' %}">
+
+        :root {
+            --primary-color: #8f94fb;
+            --background-gradient-start: #8f94fb;
+            --background-gradient-end: #4e54c8;
+            --box-bg-color: rgba(255, 255, 255, 0.8); /* Translucent box */
+            --box-border-color: rgba(255, 255, 255, 0.5);
+            --text-color: #582dd7;
+            --secondary-text-color: #e0e0e0;
+            --button-hover-color: #5a62d8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Exo', sans-serif;
+            background: linear-gradient(to left, var(--background-gradient-start), var(--background-gradient-end));
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        .area {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .circles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(odd) {
+            animation-duration: 30s;
+        }
+
+        .circles li:nth-child(even) {
+            animation-duration: 18s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+        .dashboard {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            background-color: var(--box-bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--text-color);
+            text-align: left; /* Left-aligned heading */
+            font-weight: bold; /* Bold font for heading */
+        }
+
+        .name {
+            font-size: 2.5rem; /* Bigger font size */
+            font-weight: bold;
+            text-align: center; /* Center alignment */
+            margin: 10px 0;
+        }
+
+        .admission {
+            font-size: 1.2rem; /* Smaller size for admission number */
+            color: var(--text-color);
+            text-align: center; /* Center alignment */
+            margin-bottom: 20px;
+        }
+
+        .details {
+            margin-top: 20px;
+        }
+
+        .detail-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-align: left; /* Left-align text inside box */
+            color: var(--text-color);
+        }
+
+        .detail-box .label {
+            font-weight: bold; /* Bold label */
+            flex: 1; /* Left-align with flex property */
+            text-align: left; /* Left-aligned label */
+        }
+
+        .detail-box .value {
+            flex: 1; /* Center the value */
+            text-align: center;
+        }
+
+        .btn a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--secondary-text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn a:hover {
+            background-color: var(--button-hover-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+   
+        <div class="name">
+            John Doe
+        </div>
+        <div class="admission">
+            EDU123456
+        </div>
+
+        <div class="details">
+            <div class="detail-box">
+                <div class="label">Phone Number:</div>
+                <div class="value">+91 9876543210</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Current Semester:</div>
+                <div class="value">5th Semester</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Year of Joining:</div>
+                <div class="value">2021</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Department:</div>
+                <div class="value">Computer Science</div>
+            </div>
+        </div>
+
+        <div class="btn">
+            <a href="#">Edit Profile</a>
+        </div>
+        <div class="btn">
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+    </div>
+
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>

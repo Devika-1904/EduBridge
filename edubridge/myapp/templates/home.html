@@ -1,0 +1,585 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edubridge - Home</title>
+    <style>
+        /* Color Variables */
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --background-color: #f3f4f6;
+            --text-color: #fff;
+        }
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            max-width: 100vw;
+            overflow-x: hidden;
+            padding: 0;
+            overflow-x: hidden; 
+            background-color: var(--background-color);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hamburger Menu for Small Screens */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 4px 0;
+        }
+
+        .popup-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 20;
+            text-align: center;
+        }
+
+        .popup-menu a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .popup-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Section */
+        .section {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center align content */
+            padding: 20px;
+            text-align: center; /* Center align text */
+        }
+
+        .section-content {
+            color: blue;
+            max-width: 500px;
+            padding: 10px;
+            line-height: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+            width:100%;
+           
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Accessibility Button */
+        .accessibility-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .accessibility-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .accessibility-button span {
+            font-size: 12px;
+            text-align: center;
+        }
+  
+     /* Edubridge Section */
+     .edubridge-section {
+        position: relative;
+        height: 60vh;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .content p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Heading for Materials for Your Semester */
+    .semester-materials-heading {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #f4f4f4;
+    }
+
+    .semester-materials-heading h2 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .semester-materials-heading p {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Horizontal Scroll Container */
+    .horizontal-scroll-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 20px 0;
+        background-color: #f4f4f4;
+    }
+
+    .card {
+        flex: 0 0 auto;
+        width: 250px;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img {
+        max-width: 100%;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-description {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 10px;
+    }
+
+    .card-link {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .card-link:hover {
+        background-color: #0056b3;
+    }
+    .horizontal-scroll-container {
+    width: 70%; /* Reduce the width */
+    margin: 0 auto; /* Center-align the container */
+    text-align: center; /* Ensure content within is centered */
+}
+    .horizontal-scroll-container::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .horizontal-scroll-container::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    .horizontal-scroll-container::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+        /* Button Styles */
+button {
+    background-color: var(--primary-color); /* Button background color */
+    color: white; /* Button text color */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    padding: 12px 24px; /* Padding for button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: var(--primary-hover); /* Hover background color */
+    transform: scale(1.05); /* Slightly increase button size on hover */
+}
+
+button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.6); /* Add focus outline */
+}
+
+button:active {
+    transform: scale(0.98); /* Slightly decrease size on active click */
+}
+
+/* Accessibility: High contrast */
+button[aria-pressed="true"] {
+    background-color: var(--primary-hover);
+}
+
+
+      /* Responsive Design */
+@media (max-width: 768px) {
+    /* Header */
+    .nav-links {
+        display: none; /* Hide regular navigation */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger menu */
+    }
+
+    .popup-menu {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80%; /* Smaller width for mobile */
+        height: 100%; /* Full height */
+        background-color: #ffffff;
+        box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        z-index: 20;
+        text-align: center; /* Center-align the links */
+        overflow-y: auto; /* Enable scrolling if menu content overflows vertically */
+    }
+
+    .popup-menu.open {
+        display: block; /* Show popup menu when toggled */
+    }
+
+    .popup-menu a {
+        font-size: 18px; /* Adjust font size */
+        padding: 10px 0; /* Add spacing between links */
+        display: block;
+    }
+
+    /* Sections */
+    .section {
+        height: 25em; /* Allow flexible height for sections */
+        padding: 20px; /* Adjust padding for mobile screens */
+    }
+
+    .section-content {
+        max-width: 90%; /* Ensure content fits within the screen */
+        margin: 0 auto; 
+        line-height: 30px;/* Center-align content */
+    }
+
+    .section-content h2 {
+        font-size: 20px; /* Reduce heading size */
+    }
+
+    .section-content p {
+        font-size: 14px; /* Reduce paragraph size */
+    }
+
+    .section-content button {
+        font-size: 14px; /* Adjust button size */
+        padding: 10px 20px; /* Adjust padding for smaller buttons */
+    }
+
+    /* Accessibility Button */
+    .accessibility-button {
+        width: 50px; /* Smaller button for mobile */
+        height: 50px;
+        font-size: 12px;
+        position: fixed;
+    }
+
+    /* Footer */
+    .footer {
+        font-size: 14px; /* Adjust footer text size */
+        padding: 15px 10px;
+    }
+
+    /* Prevent horizontal scrolling */
+    body {
+        overflow-x: hidden; /* Disable horizontal scrolling */
+    }
+
+   
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">Edubridge</div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'Donate' %}">Donate</a>
+        <a href="{% url 'receive' %}">Receive</a>
+        <a href="{% url 'alumini' %}">Alumni Chat</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Popup Menu -->
+    <div id="popupMenu" class="popup-menu">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'Donate' %}">Donate</a>
+        <a href="{% url 'receive' %}">Receive</a>
+        <a href="{% url 'alumini' %}">Alumni Chat</a>
+    </div>
+<!-- Edubridge Section with Background Image and Text -->
+<div class="edubridge-section" style="background-image: url('{% static "images/R.jpg" %}'); max-width: 100vw;">
+    <div class="overlay">
+        <div class="content">
+            <h1>Welcome to Edubridge</h1>
+            <p>Connecting students through book donations, study materials, and alumni insights.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Materials for Your Semester Heading -->
+<div class="semester-materials-heading" style="text-align: center;">
+    <h2>Materials for Your Semester</h2>
+    <p>Browse books and study materials shared by fellow students to help you succeed in your studies.</p>
+</div>
+
+<!-- Horizontal Scroll for Books or Subject Details -->
+<div class="horizontal-scroll-container" style="width: 70%; margin: 0 auto; text-align: center;">
+    <!-- Book or Subject Card 1 -->
+    <div class="card">
+        <img src="{% static 'images/R.jpg' %}" alt="Book 1" class="card-img">
+        <div class="card-content">
+            <h3 class="card-title">Book Title 1</h3>
+            <p class="card-description">This is a brief description of the book or subject.</p>
+            <a href="book1.pdf" class="card-link" target="_blank">Download PDF</a>
+        </div>
+    </div>
+
+    <!-- Book or Subject Card 2 -->
+    <div class="card">
+        <img src="{% static 'images/R.jpg' %}" alt="Book 1" class="card-img">
+        <div class="card-content">
+            <h3 class="card-title">Book Title 2</h3>
+            <p class="card-description">This is a brief description of the book or subject.</p>
+            <a href="book2.pdf" class="card-link" target="_blank">Download PDF</a>
+        </div>
+    </div>
+    
+
+    <!-- Book or Subject Card 3 -->
+    <div class="card">
+        <img src="{% static 'images/R.jpg' %}" alt="Book 1" class="card-img">
+        <div class="card-content">
+            <h3 class="card-title">Book Title 3</h3>
+            <p class="card-description">This is a brief description of the book or subject.</p>
+            <a href="book3.pdf" class="card-link" target="_blank">Download PDF</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="{% static 'images/R.jpg' %}" alt="Book 1" class="card-img">
+        <div class="card-content">
+            <h3 class="card-title">Book Title 4</h3>
+            <p class="card-description">This is a brief description of the book or subject.</p>
+            <a href="book3.pdf" class="card-link" target="_blank">Download PDF</a>
+        </div>
+    </div>
+</div>
+
+    <!-- Sections -->
+    <div class="section" style="background-image: url('{% static "images/d.gif" %}'); max-width: 100vw;">
+        <div class="section-content">
+            <h2>Donate Books</h2>
+            <p>Help other students by donating your books and study materials.</p>
+            <button onclick="window.location.href='{% url 'Donate' %}'">Donate</button>
+
+        </div>
+    </div>
+
+    <div class="section" style="background-image: url('{% static "images/b.gif" %}'); max-width: 100vw;">
+        <div class="section-content">
+            <h2>Receive Books</h2>
+            <p>If you're in need of books, Edubridge is here to help you get the study materials you need.</p>
+            <button onclick="window.location.href='{% url 'receive' %}'">Receive Books</button>
+
+
+        </div>
+    </div>
+
+    <div class="section" style="background-image: url('{% static "images/m.gif" %}'); max-width: 100vw;">
+        <div class="section-content">
+            <h2>Alumni Chat</h2>
+            <p>Get insights from our alumni about placements and college activities.</p>
+            <button onclick="window.location.href='{% url 'alumini' %}'">Elite Connect</button>
+
+    </div>
+</div>
+
+<div class="section" style="background-image: url('{% static "images/m.gif" %}'); max-width: 100vw;">
+    <div class="section-content">
+        <h2>Dashboard</h2>
+        <p>Get insights from our alumni about placements and college activities.</p>
+        <button onclick="window.location.href='{% url 'dashboard' %}'">Dashboard</button>
+
+
+    <!-- Accessibility Button -->
+    <button class="accessibility-button" onclick="toggleAccessibility()">
+        <span>Use Me</span>
+    </button>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Edubridge. All Rights Reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Contact Us</a>
+        </p>
+    </div>
+
+    <script>
+        function toggleAccessibility() {
+            alert("Accessibility features activated!");
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('popupMenu');
+            menu.classList.toggle('open');
+        }
+
+        // Close popup menu on outside click
+        document.addEventListener('click', function (e) {
+            const menu = document.getElementById('popupMenu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

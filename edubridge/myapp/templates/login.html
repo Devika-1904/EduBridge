@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up / Login Form</title>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'myapp/Bgpattern.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* Define color variables */
+        :root {
+            --white: #ffffff;
+            --blue-primary: #4e54c8;
+            --blue-hover: #212be7;
+            --green-primary: #28a745;
+            --green-hover: #218838;
+            --gray-border: #ccc;
+            --gray-text: #666;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: var(--white);
+        }
+
+
+        .main {
+            width: 350px;
+            height: 550px;
+            overflow: hidden;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 5px 10px 10px var(--gray-text);
+            position: relative;
+            z-index: 2;
+        }
+
+        #chk {
+            display: none;
+        }
+
+        .signup {
+            position: relative;
+            width: 100%;
+            height: 100%;
+			margin: 0;
+        }
+
+        label {
+            color: var(--blue-primary);
+            font-size: 2em;
+            justify-content: center;
+            display: flex;
+            margin: 60px ;
+			margin-bottom: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.5s ease-in-out;
+        }
+
+        input {
+            width: 60%;
+            height: 20px;
+            background: var(--gray-border);
+            justify-content: center;
+            display: flex;
+            margin: 15px auto;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 60%;
+            height: 40px;
+            margin: 10px auto;
+            justify-content: center;
+            display: block;
+            color: var(--white);
+            background: var(--green-primary);
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            transition: 0.2s ease-in;
+            cursor: pointer;
+        }
+        .logo {
+    text-align: left; /* Aligns the logo text to the left */
+}
+
+        button:hover {
+            background: var(--green-hover);
+        }
+
+        .login {
+            height: 510px;
+            background: var(--blue-primary);
+            border-radius: 60% / 10%;
+            transform: translateY(-180px);
+            transition: 0.8s ease-in-out;
+        }
+
+        .login label {
+            color: var(--white);
+            transform: scale(0.75);
+        }
+
+        #chk:checked ~ .login {
+            transform: translateY(-550px);
+        }
+
+        #chk:checked ~ .login label {
+            transform: scale(1);
+        }
+
+        #chk:checked ~ .signup label {
+            transform: scale(0.9);
+        }
+
+        .area {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #4e54c8;
+            background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .circles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(odd) {
+            width: 80px;
+            height: 80px;
+            animation-duration: 20s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+    <!-- Signup / Login Form -->
+    <div class="main">  
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <!-- Signup Section -->
+        <div class="signup">
+            <form id="signupForm">
+                <label for="chk" aria-hidden="true">Sign up To Edubridge</label>
+                <input type="text" id="username" name="txt" placeholder="User name" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="text" id="admission" name="admission" placeholder="Admission Number" required>
+                <input type="password" id="password" name="pswd" placeholder="Password" required>
+                <button type="button" onclick="validateSignup()">Sign up</button>
+            </form>
+        </div>
+
+        <!-- Login Section -->
+        <div class="login">
+            <form id="loginForm" onsubmit="validateLogin(event)">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="email" id="loginEmail" name="email" placeholder="Email" required>
+                <input type="password" id="loginPassword" name="pswd" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Validate Signup
+        function validateSignup() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const admission = document.getElementById('admission').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !email || !admission || !password) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            if (isNaN(admission)) {
+                alert("Admission number must be numeric.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return;
+            }
+          // Redirect to the dashboard page dynamically
+          window.location.href = "{% url 'dashboard' %}";
+
+// Redirect to dashboard page
+        }
+
+        // Validate Login
+        function validateLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!email || !password) {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return;
+            }
+
+           // Redirect to the dashboard page dynamically
+window.location.href = "{% url 'home' %}";// Redirect to home page after login
+        }
+    </script>
+</body>
+
+</html>

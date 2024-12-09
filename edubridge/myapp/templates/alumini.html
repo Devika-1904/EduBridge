@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumni Chat - EduBridge</title>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <script src="{% static 'js/chat.js' %}" defer></script>
+</head>
+<body>
+    <div class="chat-container">
+        <header>
+            <h1>Alumni Chat</h1>
+        </header>
+        
+        <div class="chat-box" id="chat-box">
+            {% for message in messages %}
+                <div class="chat-message">
+                    <strong>{{ message.user }}</strong>: <p>{{ message.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="chat-input">
+            <textarea id="message-input" placeholder="Type a message..."></textarea>
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+</body>
+</html>
